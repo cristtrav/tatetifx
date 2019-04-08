@@ -83,5 +83,6 @@
       <Button fx:id="btnReiniciar" layoutX="100.0" layoutY="385.0" mnemonicParsing="false" onAction="#onActionBtnReiniciar" text="Reiniciar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="100.0" />
       <Label fx:id="lblTurno" layoutX="363.0" layoutY="390.0" text="Turno:" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="363.0" />
       <Button fx:id="btnIniciar" layoutX="23.0" layoutY="385.0" mnemonicParsing="false" onAction="#onActionBtnIniciar" text="Iniciar" />
+      <Button layoutX="188.0" layoutY="385.0" mnemonicParsing="false" onAction="#onActionBtnAcerca" text="Acerca" />
    </children>
 </AnchorPane>

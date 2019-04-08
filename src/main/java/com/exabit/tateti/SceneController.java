@@ -1,13 +1,7 @@
 package com.exabit.tateti;
 
-import java.io.DataInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,34 +47,8 @@ public class SceneController implements Initializable {
     private Button btnIniciar;
 
     boolean turnoX = true;//true=Turno de X; false=Turno de 0
-    
+
     private ToggleButton[][] matrizBtn = new ToggleButton[3][3];
-//    private final Service<Void> srvRed=new Service<Void>(){
-//        @Override
-//        protected Task<Void> createTask() {
-//            return new Task<Void>(){
-//                @Override
-//                protected Void call() throws Exception {
-//                    ServerSocket sc=new ServerSocket(9999);
-//                    sc.setSoTimeout(10000);
-//                    while(true){
-//                        try{
-//                            System.out.println("Esperando cliente en puerto "+sc.getLocalPort());
-//                            Socket socket=sc.accept();
-//                            System.out.println("Se conecto "+socket.getRemoteSocketAddress());
-//                            DataInputStream data=new DataInputStream(socket.getInputStream());
-//                            System.out.println("Mensaje: "+data.readUTF());
-//                            
-//                            DataOutputStream dataout=new DataOutputStream();
-//                        }catch(SocketTimeoutException ex){
-//                            
-//                        }
-//                    }
-//                    return null;
-//                }
-//            };
-//        }
-//    };
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,16 +112,17 @@ public class SceneController implements Initializable {
 
     private void jugar(ToggleButton btnJuego) {
         //Marcar
-
-        if (this.turnoX) {
-            btnJuego.setText("X");
-            this.lblTurno.setText("Turno de " + this.txfJugadorO.getText());
-        } else {
-            btnJuego.setText("O");
-            this.lblTurno.setText("Turno de " + this.txfJugadorX.getText());
+        if (btnJuego.getText().isEmpty()) {
+            if (this.turnoX) {
+                btnJuego.setText("X");
+                this.lblTurno.setText("Turno de " + this.txfJugadorO.getText());
+            } else {
+                btnJuego.setText("O");
+                this.lblTurno.setText("Turno de " + this.txfJugadorX.getText());
+            }
+            this.turnoX = !this.turnoX;
         }
-        this.turnoX = !this.turnoX;
-
+        
         if (!btnJuego.getText().isEmpty()) {
             btnJuego.setSelected(true);
         }
@@ -220,8 +189,11 @@ public class SceneController implements Initializable {
             for (int y = 0; y < 3; y++) {
                 this.matrizBtn[x][y].setText("");
                 this.matrizBtn[x][y].setSelected(false);
+                this.matrizBtn[x][y].setDisable(true);
             }
         }
+        this.turnoX=true;
+        this.lblTurno.setText("Turno de "+this.txfJugadorX.getText());
     }
 
     @FXML
@@ -241,6 +213,13 @@ public class SceneController implements Initializable {
                 this.matrizBtn[x][y].setDisable(d);
             }
         }
+    }
+
+    @FXML
+    private void onActionBtnAcerca(ActionEvent event) {
+        Alert al=new Alert(AlertType.INFORMATION);
+        al.setContentText("ITS Programacion");
+        al.show();
     }
 
 }
